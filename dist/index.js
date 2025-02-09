@@ -13735,7 +13735,7 @@ let requestOctokit = function () {
         let array = [];
         let iterations = 0;
         let errors = 0;
-        for (; hasNextPage;) {
+        while (hasNextPage) {
             let octokitResponseModel = await octokit.request(AUTH_KEY, setQuery(location), cursor);
             if(octokitResponseModel.status){
                 hasNextPage = octokitResponseModel.pageInfo.hasNextPage;
@@ -13744,7 +13744,7 @@ let requestOctokit = function () {
                     console.log(`iterations:(${iterations}) errors:(${errors}/${MAXIMUM_ERROR_ITERATIONS}) ${userDataModel.login} ${userDataModel.followers}`)
                     array.push(userDataModel)
                 }
-                let interval = randomIntFromInterval(1000, 5000)
+                let interval = randomIntFromInterval(1000, 1100)
                 console.log(`interval:${interval}ms hasNextPage:${hasNextPage} cursor:${cursor} users:${array.length}`);
                 await setDelay(interval);
                 iterations ++;
